@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Property
+  - ItemHealth
+  - ItemDamage
+  - ItemArmor
+  - Armor
+  - Item Ultimate
+  - Enemy Bullet
+  - Enemy Sword
+  - Reflection
+  - Player Bullet
+  - Bos Bullet
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Player
+  - Enemy
+  - Property
+  - ItemHealth
+  - ItemDamage
+  - ItemArmor
+  - Armor
+  - Item Ultimate
+  - Enemy Bullet
+  - Enemy Sword
+  - Player Bullet
+  - Shield Property
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
