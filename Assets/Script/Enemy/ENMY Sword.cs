@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ENMYSword : MonoBehaviour
 {
-    public Transform player;
+    private Transform player;
     public GameObject swordPrefab; // Prefab objek pedang
     public float attackRate; // Waktu antara setiap serangan
     private float nextAttackTime;
@@ -12,6 +12,7 @@ public class ENMYSword : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator anim;
     private EnemyMovement enemyMovement;
+    AUDIOManager audioManager;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class ENMYSword : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         enemyMovement = GetComponent<EnemyMovement>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AUDIOManager>();
     }
 
     private void Update()
@@ -30,6 +32,7 @@ public class ENMYSword : MonoBehaviour
             if (distanceToPlayer <= attackRange)
             {
                 Attack();
+                audioManager.PlaySFX(audioManager.CakarMusuh);
                 nextAttackTime = Time.time + attackRate;
             }
             else

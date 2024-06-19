@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public Transform player; // Transform player
     public float moveSpeed = 3f; // Kecepatan gerakan enemy
     public float stoppingDistance = 8f; // Jarak di mana musuh akan berhenti
     private Animator anim;
+    private Transform player;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
@@ -23,7 +24,7 @@ public class EnemyMovement : MonoBehaviour
             // Jika jarak kurang dari 8, gerakkan ke player
             if (distanceToPlayer < stoppingDistance)
             {
-                anim.SetBool("ENMY Walk",true);
+                anim.SetBool("ENMY Walk", true);
 
                 // Menghitung arah ke player
                 Vector3 targetDirection = player.position - transform.position;
@@ -35,7 +36,7 @@ public class EnemyMovement : MonoBehaviour
             }
             else
             {
-                anim.SetBool("ENMY Walk",false);
+                anim.SetBool("ENMY Walk", false);
             }
         }
     }

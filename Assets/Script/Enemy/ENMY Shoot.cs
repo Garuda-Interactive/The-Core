@@ -3,31 +3,43 @@ using UnityEngine;
 
 public class ENMYShoot : MonoBehaviour
 {
-    public Transform player;
+    private Transform player;
     public GameObject bulletPrefab;
     public float fireRate = 1f;
     private float nextFireTime;
     public int timeAttack;
     private SpriteRenderer spriteRenderer;
+    public float shootDistance = 10;
+    AUDIOManager audioManager;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         nextFireTime = Time.time + fireRate;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AUDIOManager>();
     }
 
     private void Update()
     {
-        if (player != null && Time.time > nextFireTime)
-        {
-            Shoot();
-            nextFireTime = Time.time + fireRate;
-        }
         if (player != null)
         {
-            EnemyFlip();
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+            if (distanceToPlayer < shootDistance)
+            {
+                if (player != null && Time.time > nextFireTime)
+                {
+                    audioManager.PlaySFX(audioManager.TembakanMusuh);
+                    Shoot();
+                    nextFireTime = Time.time + fireRate;
+                }
+                if (player != null)
+                {
+                    EnemyFlip();
+                }
+            }
         }
+
     }
 
     private void Shoot()

@@ -13,6 +13,7 @@ public class PLYRUltimate : MonoBehaviour
     public int MaxPointUltimate;
     public PLYRUltimatePointBarUI UltimatePointBarUI;
     private PLYRMovement arahPlayer;
+    AUDIOManager audioManager;
 
     // Start is called before the first frame update
     void Start()
@@ -24,11 +25,13 @@ public class PLYRUltimate : MonoBehaviour
             UltimatePointBarUI.SetMaxPointUltimate(MaxPointUltimate); // Mengatur nilai maksimum dari bar Ultimate
             UltimatePointBarUI.SetPointUltimate(JumlahPointUltimate); // Mengatur nilai awal dari bar Ultimate
         }
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AUDIOManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Time.timeScale == 0f )return; //jangan melakukan apa apa ketika pause 
         Ultimate();
     }
 
@@ -45,6 +48,7 @@ public class PLYRUltimate : MonoBehaviour
 
         if (JumlahPointUltimate >= MaxPointUltimate && Input.GetKeyDown(KeyCode.F))
         {
+            audioManager.PlaySFX(audioManager.SwordUlti);
             Shoot();
         }
     }
@@ -53,6 +57,7 @@ public class PLYRUltimate : MonoBehaviour
     {
         if(other.CompareTag("Item Ultimate"))
         {
+            audioManager.PlaySFX(audioManager.UltiItem);
             JumlahPointUltimate = Mathf.Clamp(JumlahPointUltimate + 2000 ,0,MaxPointUltimate);
             other.gameObject.SetActive(false);
 

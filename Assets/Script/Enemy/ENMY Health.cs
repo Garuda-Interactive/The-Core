@@ -1,12 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ENMYHealth : MonoBehaviour
 {
-    public int maxNyawaMusuh ;
-    public int nyawaMusuhSekarang;  
+    public int maxNyawaMusuh;
+    public int nyawaMusuhSekarang;
+    public GameObject objectToSpawn;
     public ENMYHealthBarUI healthBarUI;
+
+    private GameObject spawnedObject; // Referensi ke objek yang diinstansiasi
 
     void Start()
     {
@@ -27,15 +30,29 @@ public class ENMYHealth : MonoBehaviour
 
         if (nyawaMusuhSekarang <= 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // Hancurkan objek musuh
+            StartCoroutine(Dead());
         }
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player Bullet"))
+        if (other.CompareTag("Player Bullet"))
         {
             other.gameObject.SetActive(false);
-        }    
+        }
+    }
+
+    private void Respawn()
+    {
+        spawnedObject = Instantiate(objectToSpawn, transform.position, transform.rotation);
+    }
+
+    private IEnumerator Dead()
+    {
+        Respawn();
+        yield return new WaitForSeconds(0.5f);
+        Destroy(spawnedObject); // Hancurkan objek yang diinstansiasi
+
     }
 }

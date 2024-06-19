@@ -9,6 +9,9 @@ public class PLYRHealth : MonoBehaviour
     public int nyawaSekarang;
     public PLYRHealthBarUI HealthBarUI;
     public bool nyawaKebal = false;
+    public GameObject AuraHealth;
+    public GameObject GameOver;
+    AUDIOManager audioManager;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,7 @@ public class PLYRHealth : MonoBehaviour
         {
             HealthBarUI.SetMaxHealth(nyawaSekarang);
         }
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AUDIOManager>();
     }
 
     public void KerusakanPlayer(int damage)
@@ -46,13 +50,18 @@ public class PLYRHealth : MonoBehaviour
     {
         if (other.CompareTag("ItemHealth"))
         {
-            nyawaSekarang = Mathf.Clamp(nyawaSekarang + 1, 0, maxNyawa); // Clamp health
+            audioManager.PlaySFX(audioManager.HealthItem);
+            nyawaSekarang = Mathf.Clamp(nyawaSekarang + 5, 0, maxNyawa); // Clamp health
             other.gameObject.SetActive(false);
 
             if (HealthBarUI != null)
             {
                 HealthBarUI.SetHealth(nyawaSekarang);
             }
+
+            AuraHealth.SetActive(true);
+            Invoke(nameof(ActiveAura), 1.5f);
+
         }
         if(other.CompareTag("Enemy Bullet") || other.CompareTag("Bos Bullet"))
         {
@@ -60,8 +69,18 @@ public class PLYRHealth : MonoBehaviour
         }
     }
 
+    private void ActiveAura()
+    {
+        AuraHealth.SetActive(false);
+    }
+
     void Die()
     {
+        audioManager.PlaySFX(audioManager.GameOver);
         Destroy(gameObject);
+        Time.timeScale = 0f;
+        GameOver.SetActive(true);
+
+        AUDIOBackgroundMusic.Instance.PauseMusic();
     }
 }

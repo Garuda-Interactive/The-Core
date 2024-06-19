@@ -5,14 +5,29 @@ using UnityEngine.SceneManagement;
 
 public class UIPauseMenu : MonoBehaviour
 {
+    public PLYRUltimate pausePlayerUlti;
+
+    void Start()
+    {
+        pausePlayerUlti = FindObjectOfType<PLYRUltimate>();
+    }
+
     public void PauseGame()
     {
         Time.timeScale = 0f;
+        if (pausePlayerUlti != null)
+        {
+            pausePlayerUlti.enabled = false;
+        }
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1f;
+        if (pausePlayerUlti != null)
+        {
+            pausePlayerUlti.enabled = true;
+        }
     }
 
     public void Retry()// ulang dari awal
@@ -21,9 +36,8 @@ public class UIPauseMenu : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void QuitGame()//Pindah ke main menu
+    public void LoadScene(string sceneName)//Pindah ke Scene Lain
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneName);
     }
 }

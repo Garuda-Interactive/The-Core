@@ -16,6 +16,12 @@ public class PLYRDamage : MonoBehaviour
             {
                 nyawaEnemy.KerusakanEnemy(damage);
             }
+
+            ENMYHealthBoss nyawaBoss = other.GetComponent<ENMYHealthBoss>();
+            if (nyawaBoss != null)
+            {
+                nyawaBoss.KerusakanBossEnemy(damage);
+            }
         }
 
         if (other.CompareTag("Property"))
@@ -24,6 +30,12 @@ public class PLYRDamage : MonoBehaviour
             if (nyawaProp != null)
             {
                 nyawaProp.KerusakanProp(damage);
+            }
+
+            PROPChest nyawaChest = other.GetComponent<PROPChest>();
+            if (nyawaChest != null)
+            {
+                nyawaChest.KerusakanProp(damage);
             }
         }
     }

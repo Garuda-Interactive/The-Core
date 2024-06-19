@@ -16,6 +16,7 @@ TagManager:
   - Reflection
   - Player Bullet
   - Bos Bullet
+  - Audio
   layers:
   - Default
   - TransparentFX
@@ -35,8 +36,8 @@ TagManager:
   - Enemy Sword
   - Player Bullet
   - Shield Property
-  - 
-  - 
+  - Enemy Tower
+  - Dead Enemy
   - 
   - 
   - 

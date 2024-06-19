@@ -9,24 +9,31 @@ public class PLYRAttackUp : MonoBehaviour
     public float waktuAktifArmor;
     public GameObject Armor;
     public GameObject ArmorHealthBarUI;
+    public GameObject AuraAttackUP;
     private PLYRHealth PlayerHealth;
+    AUDIOManager audioManager;
+
     private void Start()
     {
         PlayerHealth = GetComponent<PLYRHealth>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AUDIOManager>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("ItemDamage"))
         {
+            audioManager.PlaySFX(audioManager.PowerUpItem);
             Destroy(other.gameObject);
             script1.enabled = false;
             script2.enabled = true;
+            AuraAttackUP.SetActive(true);
             Invoke(nameof(AttackUpOff), 10f);
         }
 
         if (other.CompareTag("ItemArmor"))
         {
+            audioManager.PlaySFX(audioManager.ShieldItem);
             Destroy(other.gameObject);
             Armor.SetActive(true);
             ArmorHealthBarUI.SetActive(true);
@@ -38,6 +45,7 @@ public class PLYRAttackUp : MonoBehaviour
     {
         script1.enabled = true;
         script2.enabled = false;
+        AuraAttackUP.SetActive(false);
     }
     public void ArmorOff()
     {
